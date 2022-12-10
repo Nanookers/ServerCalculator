@@ -8,14 +8,19 @@ function onReady() {
 }
 
 
-// Render Dom is Temp to get stuff posted
+// Build out render DOM to post the history. Push this into a string
 function renderDom() {
     $.ajax({
-        url: '/equation',
+        url: '/domHistory',
         method: 'GET'
       }).then((response) => {
         console.log( 'server sent us:', response );
-        return response;
+        $('#printResults').empty();
+        for( let result of response){
+            $('#printResults').append(`
+                <p>${result.sum}</p>
+            `)
+        }
     })   
 }
 
@@ -31,6 +36,7 @@ function makeItAdd() {
     modifier = '+';
     return modifier
 }//this makes the button add
+
 function makeItSubtract() {
     console.log('reading');
     modifier = '';

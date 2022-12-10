@@ -9,12 +9,13 @@ app.use(express.static('public')); //this addresses the static files.
 
 
 let equation; //math object coming over
-let sum;
+let domHistory = [];
 
 
-app.get('/equation', (req, res) => {
-    console.log('GET /equation');
-    res.send(sum);
+app.get('/domHistory', (req, res) => {
+    console.log('GET /domHistory');
+ //reading it as a string
+    res.send(domHistory); //will not send numbers... //String sends back undefined object
   })
 
 
@@ -23,6 +24,8 @@ app.listen(PORT, () => {
   })
 
 
+  
+//  Nothing renders on dom, but makeMathHappen is creating equations.
 app.post('/equation', (req, res) => {
     console.log('Post /equation')
     equation = (req.body);
@@ -30,7 +33,8 @@ app.post('/equation', (req, res) => {
     res.sendStatus(201);
     })
 
-// The equation object is posting, but I can't seem to turn the strings into numbers. 
+
+// all equations passed through if else statement. 
 function makeMathHappen() {
     if (equation.signifier === '+') {
         let one = Number(equation.numberOne)
@@ -39,7 +43,10 @@ function makeMathHappen() {
         console.log(two);
         let three = one + two
         console.log(three);
-    }return three = sum;
+        equation.sum = three;
+        return domHistory.push(equation); //push to history tab to loop through on DOM
+        
+    }
 }
 
     
