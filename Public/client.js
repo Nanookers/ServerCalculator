@@ -5,6 +5,8 @@ function onReady() {
     $('#equalSign').on('click', takeCalculatorInputs )
     $('#plusSign').on('click', makeItAdd )
     $('#minusSign').on('click', makeItSubtract )
+    $('#multSign').on('click', makeItMultiply )
+    $('#divSign').on('click', makeItDivide )
 }
 
 
@@ -16,33 +18,45 @@ function renderDom() {
       }).then((response) => {
         console.log( 'server sent us:', response );
         $('#printResults').empty();
-        for( let result of response){
+        for( let result of response){ //set the sum to a span id so only the span changes. 
             $('#printResults').append(`
-                <p>${result.sum}</p>
+                <p>${result.numberOne} ${result.signifier} ${result.numbertwo} = ${result.sum} </p> 
             `)
         }
     })   
 }
 
 
-let modifier; 
+let modifier = ''; 
 
 // This is adding the all the proper variables to the object, and reseting each time I use it
 // without having to refresh. 
 // Finish the other buttons later. 
+// building out buttons individually, then combine them into one function
 function makeItAdd() {
     console.log('reading');
-    modifier = '';
+    
     modifier = '+';
     return modifier
 }//this makes the button add
 
 function makeItSubtract() {
     console.log('reading');
-    modifier = '';
     modifier = '-';
     return modifier
 }//this makes the button subtract
+
+function makeItMultiply() {
+    console.log('reading');
+    modifier = '*';
+    return modifier
+}
+
+function makeItDivide() {
+    console.log('reading');
+    modifier = '/';
+    return modifier
+}
 
 function takeCalculatorInputs() {
     let numOne = $('#firstNumberInput').val();

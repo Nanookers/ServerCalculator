@@ -41,13 +41,45 @@ function makeMathHappen() {
         console.log(one);
         let two = Number(equation.numbertwo)
         console.log(two);
-        let three = one + two
+        let three = one + two;
         console.log(three);
         equation.sum = three;
-        return domHistory.push(equation); //push to history tab to loop through on DOM
-        
+        return domHistory.push(equation); //push to history tab to loop through on DOM  
+    }
+    if( equation.signifier === '-' ) {
+        let one = Number(equation.numberOne)
+        console.log(one);
+        let two = Number(equation.numbertwo)
+        console.log(two);
+        let three = one - two;
+        console.log(three);
+        equation.sum = three;
+        return domHistory.push(equation);
+    }
+    if( equation.signifier === '*' ) {
+        let one = Number(equation.numberOne)
+        console.log(one);
+        let two = Number(equation.numbertwo)
+        console.log(two);
+        let three = one * two;
+        console.log(three);
+        equation.sum = three;
+        return domHistory.push(equation);
+    }
+    if( equation.signifier === '/' ) {
+        let one = Number(equation.numberOne)
+        console.log(one);
+        let two = Number(equation.numbertwo)
+        console.log(two);
+        let three = one / two;
+        console.log(three);
+        equation.sum = three;
+        return domHistory.push(equation);
     }
 }
+
+
+
 
     
 
