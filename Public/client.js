@@ -2,7 +2,6 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('query loaded');
-    renderDom();
     $('#equalSign').on('click', takeCalculatorInputs )
     $('#plusSign').on('click', makeItAdd )
     $('#minusSign').on('click', makeItSubtract )
@@ -12,19 +11,15 @@ function onReady() {
 // Render Dom is Temp to get stuff posted
 function renderDom() {
     $.ajax({
-        url: '/arithmeticArray',
+        url: '/sumTotal',
         method: 'GET'
       }).then((response) => {
         console.log( 'server sent us:', response );
-        $('#testOfDom').empty();
-        for( let data of response){ //remove this in the future, just for test
-            $('#testOfDom').append(`
-            <p>${data}</p>
-            `)
-            
-        }
+        return response;
     })   
 }
+
+let sumTotal = renderDom();
 
 let modifier; 
 
@@ -53,40 +48,19 @@ function takeCalculatorInputs() {
         numberOne: numOne,
         numbertwo: numTwo,
         signifier: modifierSign,
+        sum: ''
     }
 
     $.ajax({
-        url: '/arithmeticArray',
+        url: '/equation',
         method: 'POST',
         data: arithmetic
       }).then((response) => {
         console.log('POST / guesses sent', response)  
-      })
+      });
     
-    ; //just to see that it works.
+    renderDom();
+    
+    
     
 }
-
-
-// Logic below works, impliment it on server side. 
-// let arrayOne = [
-//     {
-//         numberOne: 2,
-//         numbertwo: 3,
-//         signifier: '-',
-//     }
-// ]
-
-// let numOne = 3;
-// let numtwo = 2;
-
-// function nameOf(numOne, numtwo) {
-//     for (const arrayO of arrayOne) {
-//         if( arrayO.signifier === '-')
-//         return numOne - numtwo;
-    
-//     }
-
-// }
-
-// console.log(nameOf(numOne,  numtwo));
