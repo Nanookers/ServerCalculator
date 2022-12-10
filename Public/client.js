@@ -11,7 +11,7 @@ function onReady() {
 // Render Dom is Temp to get stuff posted
 function renderDom() {
     $.ajax({
-        url: '/sumTotal',
+        url: '/equation',
         method: 'GET'
       }).then((response) => {
         console.log( 'server sent us:', response );
@@ -19,7 +19,6 @@ function renderDom() {
     })   
 }
 
-let sumTotal = renderDom();
 
 let modifier; 
 
@@ -44,7 +43,7 @@ function takeCalculatorInputs() {
     let numTwo = $('#SecondNumberInput').val();
     let modifierSign = modifier
 
-    let arithmetic = {
+    let equation = {
         numberOne: numOne,
         numbertwo: numTwo,
         signifier: modifierSign,
@@ -54,7 +53,7 @@ function takeCalculatorInputs() {
     $.ajax({
         url: '/equation',
         method: 'POST',
-        data: arithmetic
+        data: equation
       }).then((response) => {
         console.log('POST / guesses sent', response)  
       });

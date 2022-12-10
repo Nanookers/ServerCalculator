@@ -9,13 +9,12 @@ app.use(express.static('public')); //this addresses the static files.
 
 
 let equation; //math object coming over
-// let sumTotal; //total of solved equation
+let sum;
 
 
 app.get('/equation', (req, res) => {
     console.log('GET /equation');
-    // makeMathHappen();
-    res.send(equation);
+    res.send(sum);
   })
 
 
@@ -27,21 +26,21 @@ app.listen(PORT, () => {
 app.post('/equation', (req, res) => {
     console.log('Post /equation')
     equation = (req.body);
+    makeMathHappen(equation) //math happens in post, instead of in the get. 
     res.sendStatus(201);
     })
 
 // The equation object is posting, but I can't seem to turn the strings into numbers. 
-// function makeMathHappen() {
-//     let one = Number(equation.numberOne)
-//     console.log(one);
-//     let two = Number(equation.numbertwo)
-//     console.log(two);
-//         if( equation.signifier === '+'){
-//             equation.sum = one + two; 
-//             sumTotal = equation.sum
-//         }
-//         return sumTotal
-// }
-//end of math function
+function makeMathHappen() {
+    if (equation.signifier === '+') {
+        let one = Number(equation.numberOne)
+        console.log(one);
+        let two = Number(equation.numbertwo)
+        console.log(two);
+        let three = one + two
+        console.log(three);
+    }return three = sum;
+}
+
     
 
