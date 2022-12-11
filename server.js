@@ -44,7 +44,7 @@ function makeMathHappen() {
         let three = one + two;
         console.log(three);
         equation.sum = three;
-        return domHistory.push(equation); //push to history tab to loop through on DOM  
+        return domHistory.push(equation); 
     }
     if( equation.signifier === '-' ) {
         let one = Number(equation.numberOne)
