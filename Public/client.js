@@ -6,10 +6,12 @@ function onReady() {
     $('#clearButton').on('click', clearInputs )
     // instead of using on click for the operator buttons, I wanted to try and use 
     // html events for those buttons to see how they work. 
+    $('body').on(`click`,'.equationHistory', rerunHistory )
 }
 
+let modifier = ''; 
 
-// Build out render DOM to post the history. Push this into a string
+// Dedicated render DOM function
 function renderDom() {
     $.ajax({
         url: '/domHistory',
@@ -25,7 +27,7 @@ function renderDom() {
         $('#printResults').empty();
         for( let result of response){ //set the sum to a span id so only the span changes. 
             $('#printResults').append(`
-                <p>${result.numberOne} ${result.signifier} ${result.numbertwo} = ${result.sum} </p> 
+                <p class="equationHistory">${result.numberOne} ${result.signifier} ${result.numbertwo} = ${result.sum}</p> 
             `)
         }
         
@@ -33,7 +35,7 @@ function renderDom() {
 }
 
 
-let modifier = ''; 
+// Original function for Buttons (this was changed).
 // function makeItAdd() {
 //     console.log('reading');
     
@@ -59,6 +61,8 @@ let modifier = '';
 //     return modifier
 // }//this makes the button divide
 
+
+// This function creates Objects and POSTs them to the server.
 function takeCalculatorInputs() {
     let numOne = $('#firstNumberInput').val();
     let numTwo = $('#SecondNumberInput').val();
@@ -69,6 +73,13 @@ function takeCalculatorInputs() {
         numbertwo: numTwo,
         signifier: modifierSign,
         sum: ''
+    }
+
+    if( numOne === '' || numTwo === ''  || modifier === '' ){
+        clearInputs(); //reset inputs
+        alert( 'Inputs were not entered properly, try again.');
+        return equation = ''; 
+        // equation needs to be emptied or else equation will still post. 
     }
 
     $.ajax({
@@ -82,6 +93,7 @@ function takeCalculatorInputs() {
     renderDom();   
 }
 
+// Clears inputs and sets them to their origingal value.
 function clearInputs(){
     $('#firstNumberInput').val('');
     $('#SecondNumberInput').val('');
@@ -90,15 +102,31 @@ function clearInputs(){
     // modifiers appear to be cleared because it wont add anything to the history array.
 }
 
+function rerunHistory() {
+    let selectedHistory = $(this).text()
+    let splitHistory = selectedHistory.split(" ");
+    console.log(splitHistory); //all arrays have five values
+    $('#firstNumberInput').val(splitHistory[0]);
+    $('#SecondNumberInput').val(splitHistory[2]);
+    $('#currentEquation').text(splitHistory[4]);
+    alert(`${splitHistory[0]} ${splitHistory[1]} ${splitHistory[2]} = ${splitHistory[4]}`);
+
+
+}
+
+// Runs onClick event in the html for addition button.
 function addEmUp() {
     return modifier = '+';
 }
+// Runs onClick event in the html for subraction button.
 function minusEmDown() {
     return modifier = '-';
 }
+// Runs onClick event in the html for mulitplication button.
 function multiplyEm() {
     return modifier = '*';
 }
+// Runs onClick event in the html for division button.
 function divideEm() {
     return modifier = '/';
 }
