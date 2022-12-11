@@ -4,8 +4,10 @@ function onReady() {
     console.log('query loaded');
     $('#equalSign').on('click', takeCalculatorInputs )
     $('#clearButton').on('click', clearInputs )
-    // instead of using on click for the operator buttons, I wanted to try and use 
-    // html events for those buttons to see how they work. 
+    $('#plusSign').on('click', makeItAdd )
+    $('#minusSign').on('click', makeItSubtract )
+    $('#multSign').on('click', makeItMultiply )
+    $('#divSign').on('click', makeItDivide )
 }
 
 
@@ -34,30 +36,35 @@ function renderDom() {
 
 
 let modifier = ''; 
-// function makeItAdd() {
-//     console.log('reading');
+
+// This is adding the all the proper variables to the object, and reseting each time I use it
+// without having to refresh. 
+// Finish the other buttons later. 
+// building out buttons individually, then combine them into one function
+function makeItAdd() {
+    console.log('reading');
     
-//     modifier = '+';
-//     return modifier
-// }//this makes the button add
+    modifier = '+';
+    return modifier
+}//this makes the button add
 
-// function makeItSubtract() {
-//     console.log('reading');
-//     modifier = '-';
-//     return modifier
-// }//this makes the button subtract
+function makeItSubtract() {
+    console.log('reading');
+    modifier = '-';
+    return modifier
+}//this makes the button subtract
 
-// function makeItMultiply() {
-//     console.log('reading');
-//     modifier = '*';
-//     return modifier
-// }//this makes the button mult
+function makeItMultiply() {
+    console.log('reading');
+    modifier = '*';
+    return modifier
+}//this makes the button mult
 
-// function makeItDivide() {
-//     console.log('reading');
-//     modifier = '/';
-//     return modifier
-// }//this makes the button divide
+function makeItDivide() {
+    console.log('reading');
+    modifier = '/';
+    return modifier
+}//this makes the button divide
 
 function takeCalculatorInputs() {
     let numOne = $('#firstNumberInput').val();
@@ -88,19 +95,4 @@ function clearInputs(){
     modifier = '';
     //makes it so a modifier has to be selected in order to enter information. 
     // modifiers appear to be cleared because it wont add anything to the history array.
-}
-
-function addEmUp() {
-    return modifier = '+';
-}
-function minusEmDown() {
-    return modifier = '-';
-}
-function multiplyEm() {
-    return modifier = '*';
-}
-function divideEm() {
-    return modifier = '/';
-}
-// Tried a different way of getting buttons to Work. I found that I could embed
-// the onclick event in the html, instead of creating on ready functions for eachbutton. 
+} 

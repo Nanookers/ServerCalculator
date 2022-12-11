@@ -9,7 +9,7 @@ app.use(express.static('public')); //this addresses the static files.
 
 
 let equation; //math object coming over
-let domHistory = [];
+let domHistory = []; //history for the Dom
 
 
 app.get('/domHistory', (req, res) => {
@@ -25,7 +25,7 @@ app.listen(PORT, () => {
 
 
   
-//  Nothing renders on dom, but makeMathHappen is creating equations.
+//  I Put makeMathHappen in here. Post was unable to handle the process
 app.post('/equation', (req, res) => {
     console.log('Post /equation')
     equation = (req.body);
